@@ -1,3 +1,7 @@
 [submodule "dmoj/repo"]
 	path = dmoj/repo
-	url = https://github.com/DMOJ/online-judge
+	url = https://github.com/jakubpeleska/qqh-site
+
+[submodule "judge/repo"]
+	path = judge/repo
+	url = https://github.com/jakubpeleska/qqh-judge-server
