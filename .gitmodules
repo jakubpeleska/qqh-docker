@@ -1,7 +1,9 @@
 [submodule "dmoj/repo"]
 	path = dmoj/repo
 	url = https://github.com/jakubpeleska/qqh-site
+	branch = master
 
 [submodule "judge/repo"]
 	path = judge/repo
 	url = https://github.com/jakubpeleska/qqh-judge-server
+	branch = master
