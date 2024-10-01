@@ -70,7 +70,7 @@ template = string.Template(
             "creation_date": "${date_joined}",
             "is_open": true,
             "slug": "qqh",
-            "name": "QQH: Qminers Quant Hackaton",
+            "name": "QQH: Qminers Quant Hackathon",
             "short_name": "QQH",
             "slots": null
         },
@@ -96,7 +96,7 @@ template = string.Template(
     {
         "fields": {
             "domain": "localhost:8080",
-            "name": "QQH: Qminers Quant Hackaton"
+            "name": "QQH: Qminers Quant Hackathon"
         },
         "model": "sites.site",
         "pk": 1
