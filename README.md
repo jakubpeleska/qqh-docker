@@ -43,11 +43,16 @@ You will also need to generate the static files:
 $ ./scripts/copy_static
 ```
 
+You will also need to generate the init fixture:
+```
+$ python ./scripts/init_fixture.py
+```
+
 Finally, the DMOJ comes with fixtures so that the initial install is not blank. They can be loaded with the following commands:
 ```sh
 $ ./scripts/manage.py loaddata navbar
 $ ./scripts/manage.py loaddata language_small
-$ ./scripts/manage.py loaddata demo
+$ ./scripts/manage.py loaddata init # optional if you already executed it during creation in ./scripts/init_fixture.py
 ```
 
 ## Usage
