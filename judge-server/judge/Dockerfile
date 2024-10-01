@@ -1,4 +1,4 @@
-# FROM debian:sid as dmoj/runtimes-tier1
+# FROM debian:bullseye AS dmoj/runtimes-tier1
 
 # RUN echo deb http://deb.debian.org/debian/ bullseye main > /etc/apt/sources.list.d/bullseye.list && \
 #     echo deb http://security.debian.org/debian-security bullseye-security main >> /etc/apt/sources.list.d/bullseye.list && \
@@ -12,26 +12,28 @@
 #     apt-get clean && rm -rf /var/lib/apt/lists/* && \
 #     useradd -m judge
 
-FROM dmoj/runtimes-tier1 as with-docker
+FROM dmoj/runtimes-tier1 AS with-docker
 
-#Install docker
-RUN apt install -y \
-    apt-transport-https \
-    ca-certificates \
-    curl \
-    gnupg-agent \
-    software-properties-common
-RUN curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add -
-RUN add-apt-repository \
-   "deb [arch=amd64] https://download.docker.com/linux/debian \
-   bullseye \
-   stable"
-RUN apt update
-RUN apt install -y docker-ce docker-ce-cli containerd.io
+# Install docker
+# Add Docker's official GPG key:
+RUN apt-get update
+RUN apt-get install ca-certificates curl
+RUN install -m 0755 -d /etc/apt/keyrings
+RUN curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc
+RUN chmod a+r /etc/apt/keyrings/docker.asc
+
+# Add the repository to Apt sources:
+RUN echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/debian \
+  bullseye stable" | \
+  tee /etc/apt/sources.list.d/docker.list > /dev/null
+RUN apt-get update
+
+RUN apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 
 RUN usermod -aG docker judge
 
-FROM with-docker as with-conda
+FROM with-docker AS with-conda
 
 RUN mkdir /judge /problems
 
@@ -43,24 +45,27 @@ RUN bash miniconda.sh -b -u -p /usr/lib/miniconda && \
   /usr/lib/miniconda/bin/conda init bash
 
 # Create conda runtime environment
-COPY runtime.yml /judge/runtime.yml
+COPY judge/conda_envs/ /judge
 RUN /usr/lib/miniconda/bin/conda env create -f /judge/runtime.yml
 
 # Create judge environment
-RUN python3 -m venv --prompt=DMOJ /env
-RUN /env/bin/pip3 install cython setuptools
+RUN /usr/lib/miniconda/bin/conda create -y -n judge python=3.12
+
+# Activate the conda env
+SHELL ["/usr/lib/miniconda/bin/conda", "run", "-n", "judge", "/bin/bash", "-c"]
 
 # Install judge
-COPY ./repo /judge
-RUN /env/bin/pip3 install -e . 
-RUN /env/bin/python3 setup.py develop
+RUN pip install cython setuptools
+COPY repo /judge
+RUN pip install -e . 
+RUN python setup.py develop
 
 # Add judge runtime paths
-COPY judge-runtime-paths.yml /judge-runtime-paths.yml
+COPY judge/judge-runtime-paths.yml /judge-runtime-paths.yml
 
 WORKDIR /
 
-ENTRYPOINT ["/usr/bin/tini", "--", "/judge/.docker/entry"]
+# ENTRYPOINT ["/usr/bin/tini", "--", "/judge/.docker/entry"]
  
 # docker run --name judge -p 9998:9998 --network="host"  \ 
 # -v /home/jakub/Data/ŠKOLA/Ph.D./git/dmoj-docker/dmoj/problems:/problems \ 
