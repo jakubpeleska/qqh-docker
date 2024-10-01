@@ -4,6 +4,6 @@
 	branch = master
 
 [submodule "judge/repo"]
-	path = judge/repo
+	path = judge-server/repo
 	url = https://github.com/jakubpeleska/qqh-judge-server
 	branch = master
