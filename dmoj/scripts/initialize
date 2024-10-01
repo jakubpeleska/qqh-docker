@@ -3,6 +3,6 @@ cd $(dirname $(dirname $0)) || exit
 
 mkdir problems media
 
-mv ../config.js repo/websocket/
-mv ../local_settings.py repo/dmoj/
-mv ../uwsgi.ini repo/
+cp configs/config.js repo/websocket/
+cp configs/local_settings.py repo/dmoj/
+cp configs/uwsgi.ini repo/
