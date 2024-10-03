@@ -1,0 +1,34 @@
+#!/bin/bash
+
+export DMOJ_IN_DOCKER=1
+export PYTHONUNBUFFERED=1
+export LANG=C.UTF-8
+export PYTHONIOENCODING=utf8
+
+cd /judge || exit
+
+MODE=$1
+
+if [ -z "${VAR}" ]; then
+    MODE=run
+fi
+
+case "$1" in
+run) command=(dmoj -p $BRIDGED_PORT $BRIDGED_HOST $JUDGE_NAME $JUDGE_KEY) ;;
+cli) command=(dmoj-cli) ;;
+test) command=(python -m dmoj.testsuite testsuite) ;;
+*)
+  echo "Invalid command, must be one of [run, cli, test]" 1>&2
+  exit 1
+  ;;
+esac
+
+shift
+export HOME=~judge
+. ~judge/.profile
+
+
+echo "${command[@]}"
+exec setpriv --reuid judge --regid judge --clear-groups \
+    /usr/lib/miniconda/bin/conda run -n judge "${command[@]}" "$@"
+

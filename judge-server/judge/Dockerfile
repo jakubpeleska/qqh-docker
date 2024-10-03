@@ -63,12 +63,11 @@ RUN python setup.py develop
 # Add judge runtime paths
 COPY judge/judge-runtime-paths.yml /judge-runtime-paths.yml
 
+# Add judge entrypoint
+COPY judge/entry /judge/.docker/entry
+RUN chmod +x /judge/.docker/entrypoint
+
+
 WORKDIR /
 
-# ENTRYPOINT ["/usr/bin/tini", "--", "/judge/.docker/entry"]
- 
-# docker run --name judge -p 9998:9998 --network="host"  \ 
-# -v /home/jakub/Data/ŠKOLA/Ph.D./git/dmoj-docker/dmoj/problems:/problems \ 
-# --cap-add=SYS_PTRACE -d --restart=always     dmoj/judge-tier1:latest \ 
-# run -p "9999"     "localhost" "Test_judge" \ 
-# "JZqyLGiBbVgM4nov3WOMFLj38cjVB+q2McqXe7xon4PysKAh/AS43mlWMe7Eq9kw7IR7ZvBl0p1+3EF/2Bw+EDOUVUlk0keKAfFm"
+ENTRYPOINT ["/usr/bin/tini", "--", "/judge/.docker/entry", "run"]

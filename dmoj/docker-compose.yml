@@ -64,7 +64,7 @@ services:
       - ./repo/:/site/
     working_dir: /site/
     env_file: [environment/mysql.env, environment/site.env]
-    networks: [site, nginx, db]
+    networks: [site, nginx, db, judge-bridge]
     depends_on: [base, db, redis]
   celery:
     build:
@@ -85,6 +85,7 @@ services:
     build:
       context: .
       dockerfile: ./bridged/Dockerfile
+    container_name: dmoj-bridged
     image: ninjaclasher/dmoj-bridged
     init: true
     restart: unless-stopped
@@ -94,7 +95,7 @@ services:
       - ./repo/:/site/
     working_dir: /site/
     env_file: [environment/mysql.env, environment/site.env]
-    networks: [site, nginx, db]
+    networks: [site, nginx, db, judge-bridge]
     ports:
       - 9999:9999
     depends_on: [base, db, redis]
@@ -129,6 +130,8 @@ networks:
   site:
   db:
   nginx:
+  judge-bridge:
+    name: dmoj_bridged
 volumes:
   assets:
   pdfcache:
