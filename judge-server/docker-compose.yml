@@ -22,10 +22,12 @@ services:
     environment:
       - BRIDGED_PORT=9999
       - BRIDGED_HOST=dmoj-bridged
+      - SANDBOX_PATH=/home/jakub/Documents/CTU/qqh/git/qqh-docker/judge-server/sandbox
     cap_add:
       - SYS_PTRACE
     volumes:
-      - ../dmoj/problems:/problems 
+      - ../dmoj/problems/:/problems/
+      - ./sandbox/:/sandbox
       - /var/run/docker.sock:/var/run/docker.sock
     networks: [db, bridged]
 networks:

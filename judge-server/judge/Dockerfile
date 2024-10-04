@@ -35,7 +35,7 @@ RUN usermod -aG docker judge
 
 FROM with-docker AS with-conda
 
-RUN mkdir /judge /problems
+RUN mkdir /judge /problems /sandbox
 
 WORKDIR /judge
 
@@ -67,7 +67,6 @@ COPY judge/judge-runtime-paths.yml /judge-runtime-paths.yml
 # Add judge entrypoint
 COPY judge/entry /judge/.docker/entry
 RUN chmod +x /judge/.docker/entry
-
 
 WORKDIR /
 
