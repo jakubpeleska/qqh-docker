@@ -45,11 +45,12 @@ RUN bash miniconda.sh -b -u -p /usr/lib/miniconda && \
   /usr/lib/miniconda/bin/conda init bash
 
 # Create conda runtime environment
-COPY judge/conda_envs/ /judge
+COPY judge/runtime/runtime.yml /judge/runtime.yml
 RUN /usr/lib/miniconda/bin/conda env create -f /judge/runtime.yml
 
 # Create judge environment
-RUN /usr/lib/miniconda/bin/conda create -y -n judge python=3.12
+COPY judge/judge-env.yml /judge/judge-env.yml
+RUN /usr/lib/miniconda/bin/conda env create -f /judge/judge-env.yml
 
 # Activate the conda env
 SHELL ["/usr/lib/miniconda/bin/conda", "run", "-n", "judge", "/bin/bash", "-c"]
@@ -65,7 +66,7 @@ COPY judge/judge-runtime-paths.yml /judge-runtime-paths.yml
 
 # Add judge entrypoint
 COPY judge/entry /judge/.docker/entry
-RUN chmod +x /judge/.docker/entrypoint
+RUN chmod +x /judge/.docker/entry
 
 
 WORKDIR /
