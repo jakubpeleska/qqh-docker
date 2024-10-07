@@ -35,7 +35,7 @@ RUN usermod -aG docker judge
 
 FROM with-docker AS with-conda
 
-RUN mkdir /judge /problems /sandbox
+RUN mkdir /judge
 
 WORKDIR /judge
 
@@ -45,8 +45,7 @@ RUN bash miniconda.sh -b -u -p /usr/lib/miniconda && \
   /usr/lib/miniconda/bin/conda init bash
 
 # Create conda runtime environment
-COPY judge/runtime/runtime.yml /judge/runtime.yml
-RUN /usr/lib/miniconda/bin/conda env create -f /judge/runtime.yml
+RUN /usr/lib/miniconda/bin/conda create -n runtime python=3.12
 
 # Create judge environment
 COPY judge/judge-env.yml /judge/judge-env.yml
@@ -67,6 +66,8 @@ COPY judge/judge-runtime-paths.yml /judge-runtime-paths.yml
 # Add judge entrypoint
 COPY judge/entry /judge/.docker/entry
 RUN chmod +x /judge/.docker/entry
+
+RUN mkdir /problems /sandbox /logs
 
 WORKDIR /
 

@@ -1,4 +1,4 @@
-name: runtime
+name: base
 channels:
   - pytorch
   - conda-forge
@@ -159,5 +159,5 @@ dependencies:
   - zlib=1.2.13=h5eee18b_1
   - zstandard=0.22.0=py312h2c38b39_0
   - zstd=1.5.5=hc292b87_2
-prefix: /usr/lib/miniconda/envs/runtime
+prefix: /opt/conda
 

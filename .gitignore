@@ -1,3 +1,9 @@
 dmoj/database
 
 *.env
+
+judge-server/logs/*
+!judge-server/logs/.gitkeep 
+
+judge-server/sandbox/*
+!judge-server/sandbox/.gitkeep
