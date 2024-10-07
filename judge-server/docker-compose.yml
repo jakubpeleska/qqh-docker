@@ -14,15 +14,12 @@ services:
       context: .
       dockerfile: ./judge/Dockerfile
     restart: unless-stopped
-    ports:
-      - 9998:9998
     env_file:
       - path: ./environment/judge.env
         required: true
     environment:
       - BRIDGED_PORT=9999
       - BRIDGED_HOST=dmoj-bridged
-      - SANDBOX_PATH=/home/jakub/Documents/CTU/qqh/git/qqh-docker/judge-server/sandbox
     cap_add:
       - SYS_PTRACE
     volumes:
