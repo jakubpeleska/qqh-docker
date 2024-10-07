@@ -29,6 +29,5 @@ export HOME=~judge
 
 
 echo "${command[@]}"
-exec setpriv --reuid judge --regid judge --clear-groups \
-    /usr/lib/miniconda/bin/conda run -n judge "${command[@]}" "$@"
+RUN_AS_ROOT=1 /usr/lib/miniconda/bin/conda run -n judge "${command[@]}" "$@"
 

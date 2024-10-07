@@ -31,7 +31,7 @@ RUN apt-get update
 
 RUN apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 
-RUN usermod -aG docker judge
+# RUN usermod -aG docker judge
 
 FROM with-docker AS with-conda
 
