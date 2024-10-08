@@ -79,10 +79,26 @@ template = string.Template(
     },
     {
         "fields": {
-            "full_name": "Sports Bettings",
-            "name": "Sports Bettings"
+            "full_name": "Simple Math",
+            "name": "Simple Math"
         },
         "model": "judge.problemtype",
+        "pk": 1
+    },
+    {
+        "fields": {
+            "full_name": "Sports Betting",
+            "name": "Sports Betting"
+        },
+        "model": "judge.problemtype",
+        "pk": 2
+    },
+    {
+        "fields": {
+            "full_name": "Uncategorized",
+            "name": "Uncategorized"
+        },
+        "model": "judge.problemgroup",
         "pk": 1
     },
     {
@@ -91,7 +107,7 @@ template = string.Template(
             "name": "Machine Learning"
         },
         "model": "judge.problemgroup",
-        "pk": 1
+        "pk": 2
     },
     {
         "fields": {
@@ -100,6 +116,22 @@ template = string.Template(
         },
         "model": "sites.site",
         "pk": 1
+    },
+    {
+        "model": "judge.language",
+        "pk": 1,
+        "fields": {
+            "key": "PY3",
+            "name": "Python 3",
+            "short_name": null,
+            "common_name": "Python",
+            "ace": "python",
+            "pygments": "python3",
+            "template": "",
+            "info": "",
+            "description": "",
+            "extension": "py"
+        }
     }
 ]
 """
