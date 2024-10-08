@@ -7,3 +7,5 @@ judge-server/logs/*
 
 judge-server/sandbox/*
 !judge-server/sandbox/.gitkeep
+
+judge-server/mariadb/data

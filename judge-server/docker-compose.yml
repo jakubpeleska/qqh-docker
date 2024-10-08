@@ -2,12 +2,14 @@ version: '3.7'
 services:
   db:
     container_name: judge_mysql
-    image: mariadb:11.5
+    image: mariadb:10.6
     restart: always
     volumes:
       - ./mariadb/init:/docker-entrypoint-initdb.d
       - ./mariadb/data:/var/lib/mysql
-    env_file: [environment/mysql.env, environment/mysql-admin.env]
+    env_file:
+      - path: environment/mysql.env
+      - path: environment/mysql-admin.env
     networks: [db]
   judge:
     build:
@@ -15,8 +17,8 @@ services:
       dockerfile: ./judge/Dockerfile
     restart: unless-stopped
     env_file:
-      - path: ./environment/judge.env
-        required: true
+      - path: environment/judge.env
+      - path: environment/mysql.env
     environment:
       - BRIDGED_PORT=9999
       - BRIDGED_HOST=dmoj-bridged
