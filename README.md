@@ -43,21 +43,30 @@ You will also need to generate the static files:
 $ ./scripts/copy_static
 ```
 
-You will also need to generate the init fixture:
+... and you will also need to generate the init fixture:
 ```
 $ python ./scripts/init_fixture.py
+```
+
+... and you will also need to generate the judges fixture which also generates judge.env:
+```
+$ python ./scripts/judge_fixture.py
 ```
 
 Finally, the DMOJ comes with fixtures so that the initial install is not blank. They can be loaded with the following commands:
 ```sh
 $ ./scripts/manage.py loaddata navbar
-$ ./scripts/manage.py loaddata language_small
-$ ./scripts/manage.py loaddata init # optional if you already executed it during creation in ./scripts/init_fixture.py
+$ ./scripts/manage.py loaddata init # optional
+$ ./scripts/manage.py loaddata judges # optional
 ```
 
 ## Usage
-```
+```sh
 $ docker compose up -d
+$ cd ../judge-server
+$ docker compose build
+# set env vars for database
+$ docker compose up --scale judge=20 # 20 is the maximum determined by judge fixture
 ```
 
 ## Notes

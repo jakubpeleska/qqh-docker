@@ -13,8 +13,13 @@ if [ -z "${VAR}" ]; then
     MODE=run
 fi
 
+CONTAINER_ID=$(hostname)
+IDX=$(docker ps --filter "id=${CONTAINER_ID}" --format "{{.Names}}" | grep -o '[0-9]*$')
+
+JUDGE_NAME="${JUDGE_NAME}${IDX}"
+
 case "$1" in
-run) command=(dmoj -p $BRIDGED_PORT $BRIDGED_HOST $JUDGE_NAME $JUDGE_KEY) ;;
+run) command=(dmoj -p $BRIDGED_PORT -d -l ../logs/judge$IDX $BRIDGED_HOST $JUDGE_NAME $JUDGE_KEY) ;;
 cli) command=(dmoj-cli) ;;
 test) command=(python -m dmoj.testsuite testsuite) ;;
 *)
