@@ -1,14 +1,14 @@
 [submodule "dmoj/repo"]
 	path = dmoj/repo
-	url = https://github.com/jakubpeleska/qqh-site
+	url = git@github.com:jakubpeleska/qqh-site.git
 	branch = master
 
 [submodule "judge/repo"]
 	path = judge-server/repo
-	url = https://github.com/jakubpeleska/qqh-judge-server
+	url = git@github.com:jakubpeleska/qqh-judge-server.git
 	branch = master
 
 [submodule "dmoj/problems"]
 	path = dmoj/problems
-	url = https://github.com/jakubpeleska/qqh-problems
+	url = git@github.com:jakubpeleska/qqh-problems.git
 	branch = main
