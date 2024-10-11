@@ -47,12 +47,4 @@ dependencies:
   - wheel=0.44.0=py311h06a4308_0
   - xz=5.4.6=h5eee18b_1
   - zlib=1.2.13=h5eee18b_1
-  - pip:
-      - dmoj==4.1.0
-      - pygments==2.18.0
-      - pylru==1.2.1
-      - pyyaml==6.0.2
-      - setproctitle==1.3.3
-      - termcolor==2.4.0
-      - watchdog==5.0.3
 prefix: /home/jakub/miniconda3/envs/qqh-dev
