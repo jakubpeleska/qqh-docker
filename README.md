@@ -65,6 +65,7 @@ $ ./scripts/manage.py loaddata judges # optional
 $ docker compose up -d
 $ cd ../judge-server
 $ docker compose build
+$ docker build judge/runtime -t qqh/runtime
 # set env vars for database
 $ docker compose up --scale judge=20 # 20 is the maximum determined by judge fixture
 ```
