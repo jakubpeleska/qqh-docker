@@ -1,5 +1,7 @@
 dmoj/database
 
+dmoj/scripts/data
+
 *.env
 
 judge-server/logs/*
