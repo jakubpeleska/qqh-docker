@@ -11,3 +11,5 @@ judge-server/sandbox/*
 !judge-server/sandbox/.gitkeep
 
 judge-server/mariadb/data
+
+dmoj/nginx-ssl/conf.d/ssl

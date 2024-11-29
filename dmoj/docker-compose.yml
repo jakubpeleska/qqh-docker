@@ -126,6 +126,21 @@ services:
       - ./nginx/conf.d/:/etc/nginx/conf.d/
     networks: [nginx]
     depends_on: [site, wsevent]
+  nginx-ssl:
+    container_name: dmoj_nginx_ssl
+    image: nginx:alpine
+    restart: always
+    ports:
+      - 443:443
+    volumes:
+      - assets:/assets/
+      - pdfcache:/pdfcache/
+      - datacache:/datacache/
+      - cache:/cache/
+      - ./media/:/media/
+      - ./nginx-ssl/conf.d/:/etc/nginx/conf.d/
+    networks: [nginx]
+    depends_on: [site, wsevent]
 networks:
   site:
   db:
